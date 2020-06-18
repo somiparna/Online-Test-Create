@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+   Edit Question Paper
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/now-ui-dashboard.css?v=1.1.2" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../assets/demo/demo.css" rel="stylesheet" />
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="orange">
+      <div class="logo">
+        <a href="" class="simple-text logo-mini"></a>
+        <div class="simple-text logo-normal">
+          <%if(type==0){%>
+            Admin
+          <%}%>
+          <%if(type==1){%>
+            Client
+            <%}%>
+          <%if(type==2){%>
+            Test Setter
+          <%}%>
+          <%if(type==3){%>
+            Test Checker
+          <%}%>
+        </div>
+      </div>
+      <div class="sidebar-wrapper">
+         <ul class="nav">
+          <li>
+            <a href="/dashboard">
+              <i class="now-ui-icons design_app"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <%if(type==0){%>
+          <li>
+            <a href="/manage_client">
+              <i class="now-ui-icons education_atom"></i>
+              <p>
+               Clients
+              </p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1){%>
+           <li>
+            <a href="/manage_exam">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Exams</p>
+            </a>
+          </li>
+           <li>
+            <a href="/manage_users">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Test Setters</p>
+            </a>
+          </li>
+           <li>
+            <a href="/manage_checker">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Test Checkers</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1 || type==2){%>
+           <li class="active">
+            <a href="/manage_qa">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Question Papers</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1){%>
+           <li>
+            <a href="/manage_students">
+              <i class="now-ui-icons design_bullet-list-67"></i>
+              <p>Students</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1 || type==3){%>
+           <li>
+            <a href="/manage_result">
+              <i class="now-ui-icons text_caps-small"></i>
+              <p>Check Responses</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1){%>
+           <li>
+            <a href="/final_result">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Final Results</p>
+            </a>
+          </li>
+          <%}%>
+          <li>
+            <a href="/logout">
+              <i class="now-ui-icons text_caps-small"></i>
+              <p>Logout</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <div class="panel-header panel-header-md">
+        <h1 class="text-center text-white">Edit Questions and Answers</h1>
+        
+        <div class="text-right" style="margin-right: 20px;">
+          <%if(confirm==0){%>
+            <strong><div class="posi" style="color: white;">Total Marks Remaining : &nbsp;&nbsp;<input id="rem" disabled style="width:6%;color:red; text-align: center;"></div></strong>
+           <%}%>
+
+       </div>
+      </div>
+     <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Objective Questions</h4>
+              </div>
+              <%if(confirm==0){%>
+                <button type="button" class="btn btn-primary ml-5" id="obj" data-toggle="modal" data-target=".bd-example-modal-lg">Add Question</button>
+              <%}%>
+              <div class="card-body">
+                <div class="toolbar">
+                  <!--        Here you can write extra buttons/actions for the toolbar              -->
+                </div>
+                <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Ques ID</th>
+                      <th>Question</th>
+                      <th>Op1</th>
+                      <th>Op2</th>
+                      <th>Op3</th>
+                      <th>Op4</th>
+                      <th>Type</th>
+                      <th>Ans</th>
+                      <th>Pos Marks</th>
+                      <th>Neg Marks</th>
+                      <th>Edit</th>
+                      <th>Omit</th>
+                      <th class="disabled-sorting">Images</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Ques ID</th>
+                      <th>Question</th>
+                      <th>Op1</th>
+                      <th>Op2</th>
+                      <th>Op3</th>
+                      <th>Op4</th>
+                      <th>Type</th>
+                      <th>Ans</th>
+                      <th>Pos Marks</th>
+                      <th>Neg Marks</th>
+                      <th>Edit</th>
+                      <th>Omit</th>
+                      <th class="disabled-sorting">Images</th>
+                    </tr>
+                  </tfoot>
+
+                  <tbody>
+                    <%if(ques.length) {
+                      for(var i = 0;i < ques.length;i++) {
+                        if(ques[i].type==1||ques[i].type==3){%>
+                          <tr>
+                            <td data-label="id" class="nr"><%=ques[i].ques_id%></td>
+                            <td data-label="ques"><%=ques[i].ques%></td>
+                            <td data-label="op_1"><%=ques[i].option_1%></td>
+                            <td data-label="op_2"><%=ques[i].option_2%></td>
+                            <td data-label="op_3"><%=ques[i].option_3%></td>
+                            <td data-label="op_4"><%=ques[i].option_4%></td>
+                            <%if(ques[i].type==1){%>
+                              <td data-label="type">Mutiple Chioce</td>
+                            <%}%>
+                            <%if(ques[i].type==3){%>
+                              <td data-label="type">Single Choice</td>
+                            <%}%>
+                            <td data-label="ans"><%=ques[i].ans%></td>
+                            <td data-label="pos"><%=ques[i].pos_marks%></td>
+                            <td data-label="neg"><%=ques[i].neg_marks%></td>
+                            <td>
+                              <%if(confirm==0){%>
+                              <button class="edit-obj btn btn-primary" data-toggle="modal" data-target=".bd-example2-modal-lg">Edit</button>
+                              <%}%>
+                              <%if(confirm==1){%>
+                                <strong>Finalized</strong>
+                              <%}%>
+                            </td>
+                            <td>
+                              <%if(confirm==0){%>
+                                <form class="ui form" action="/manage_qa/edit/remove" method="post">
+                                  <button class="btn btn-danger">Omit</button>
+                                  <input type="hidden" name="ques_id" value="<%=ques[i].ques_id%>">
+                                </form>
+                              <%}%>
+                              <%if(confirm==1){%>
+                              <strong>Finalized</strong>
+                              <%}%>
+                            </td>
+                            <td>
+                              <button class="view-img-obj btn btn-info" data-toggle="modal" data-target=".bd-example4-modal-lg">Images</button>
+                            </td>
+                            <td>
+                              <!-- <button class="heyy1 btn btn-primary" data-toggle="modal" data-target=".bd-example4-modal-lg">Edit</button>
+                              <button class="view-img-obj btn btn-info" data-toggle="modal" data-target=".bd-example4-modal-lg">Images</button> -->
+                            </td>
+                          </tr>
+                        <% }
+                      }
+                    } %>
+                  </tbody>
+                </table>
+              </div>
+              <!-- end content-->
+            </div>
+            <!--  end card  -->
+          </div>
+          <!-- end col-md-12 -->
+           <div class="col-md-12" style="margin-top:30px;">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Subjective Questions</h4>
+              </div>
+              <%if(confirm==0){%>
+                <button type="button" class="btn btn-primary ml-5" id="sub" data-toggle="modal" data-target=".bd-example1-modal-lg">Add Question</button>
+              <%}%>
+              <div class="card-body">
+                <div class="toolbar">
+                  <!--        Here you can write extra buttons/actions for the toolbar              -->
+                </div>
+                <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Ques ID</th>
+                      <th>Question</th>
+                      <th>Ans</th>
+                      <th>Pos Marks</th>
+                      <th>Edit</th>
+                      <th>Omit</th>
+                      <th class="disabled-sorting">Images</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Ques ID</th>
+                      <th>Question</th>
+                      <th>Ans</th>
+                      <th>Pos Marks</th>
+                      <th>Edit</th>
+                      <th>Omit</th>
+                      <th class="disabled-sorting">Images</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <%if(ques.length){
+                        for(var i = 0;i < ques.length;i++) {
+                          if(ques[i].type==2){ %>
+                          <tr>
+                            <td data-label="id" class="nr1"><%=ques[i].ques_id%></td>
+                            <td data-label="ques"><%=ques[i].ques%></td>
+                            <td data-label="ans"><%=ques[i].ans%></td>
+                            <td data-label="pos"><%=ques[i].pos_marks%></td>
+                            <td>
+                              <%if(confirm==0){%>
+                                <button class="edit-sub btn btn-primary" data-toggle="modal" data-target=".bd-example3-modal-lg">Edit</button>
+                              <%}%>
+                              <%if(confirm==1){%>
+                                <strong>Finalized</strong>
+                              <%}%>
+                            </td>
+                            <td>
+                              <%if(confirm==0){%>
+                              <form class="ui form" action="/manage_qa/edit/remove" method="post">
+                                  <button class="btn btn-danger">Omit</button>
+                                  <input type="hidden" name="ques_id" value="<%=ques[i].ques_id%>">
+                                </form>
+                              <%}%>
+                              <%if(confirm==1){%>
+                                <strong>Finalized</strong>
+                              <%}%>
+                            </td>
+                            <td>
+                              <button class="view-img-sub btn btn-info" data-toggle="modal" data-target=".bd-example5-modal-lg">Images</button>
+                            </td>
+                          </tr>
+                        <%}
+                       }
+                    } %>
+                  </tbody>
+                </table>
+              </div>
+              <!-- end content-->
+            </div>
+            <!--  end card  -->
+          </div>
+          <!-- end col-md-12 -->
+        </div>
+        <!-- end row -->
+      </div>
+
+<!--The Instruction Modal-->
+      <center><div class="col-md-10 text-center" style="margin-top: 60px;" >
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">INSTRUCTIONS</h4>
+          </div>
+          <div class="card-body" style="padding: 20px;">
+            <form class="ui form" action="/manage_qa/edit/inst" method="post" id="instructions">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <textarea class="form-control" rows="6" name="inst" placeholder="Enter the Custom Instructions....." style="background-color: rgb(235, 228, 228); border: 1px solid rgb(207, 202, 202); outline: none;"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-fill btn-primary">Add Instructions</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      </center>
+<!--End Of Instruction Modal-->
+
+
+
+<!-- Objective Question Form Modal-->
+      <div id="obj_add_modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <form class="ui form" action="/manage_qa/edit/obj" id="objform"method="post" enctype="multipart/form-data">
+                <div class="ui form" style="margin-left: 40px; margin-right: 40px; margin-top: 40px; margin-bottom: 30px;">
+
+          <!--Question -->  
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Question</label><br> 
+                      <textarea type="text" class="ques" rows="3" name="question" id="question" placeholder="Enter the Question....." required style="width: 81%; margin-left: 10px; margin-right: 23px; padding-top: 5px; padding-bottom: 5px; padding-left: 15px; padding-right: 15px; border-radius: 15px; border: 1px solid grey; outline: none;"></textarea>
+                    <label class="btn btn-default" style="margin-top: -50px;">
+                      Browse <input type="file"name="ques_img_o_0" id="fileupload_1_0" hidden>
+                    </label>
+                  </div>
+                </div>
+
+          <!--Option 1-->
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Option 1 &nbsp;&nbsp;</label>
+                    <input type="checkbox" id="ch_i_1" class="check" name="op[]" value="1">
+                    <input type="text" class="option" id="option_1" name="option1" placeholder="Enter the option 1...." style="margin-left: 10px ; margin-right: 20px; padding-left: 15px; padding-right: 15px; border-radius: 20px; border: 1px solid grey; width: 70%; height: 30px; outline: none;">
+                    <label class="btn btn-default">
+                      Browse <input type="file" name="op_1_img" id="fileupload_1_1" hidden>
+                    </label>
+                  </div>
+                </div>
+
+          <!--Option 2-->
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Option 2 &nbsp;</label>
+                    <input type="checkbox" class="check" name="op[]" value="2">
+                    <input type="text" class="option" id="option_2" name="option2" placeholder="Enter the option 2...." style="width:70%; margin-left: 10px ; margin-right: 20px; padding-left: 15px; padding-right: 15px; border-radius: 20px; border: 1px solid grey; width: 70%; height: 30px; outline: none;">
+                    <label class="btn btn-default">
+                      Browse <input type="file" name="op_2_img" id="fileupload_2_2" hidden>
+                    </label>
+                  </div>
+                </div>
+          
+          <!--Option 3-->
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Option 3 &nbsp;</label>
+                    <input type="checkbox" id="ch_i_3" class="check" name="op[]" value="3">
+                    <input type="text" class="option" name="option3" placeholder="Enter the option 3...." style="width:70%; margin-left: 10px ; margin-right: 20px; padding-left: 15px; padding-right: 15px; border-radius: 20px; border: 1px solid grey; width: 70%; height: 30px; outline: none;">
+                    <label class="btn btn-default">
+                      Browse <input type="file" name="op_3_img" id="fileupload_3_3" hidden>
+                    </label>
+                  </div>
+                </div>
+
+          <!--Option 4-->
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Option 4 &nbsp;</label>
+                    <input type="checkbox" id="ch_i_4" class="check" name="op[]" value="4">
+                    <input type="text" class="input" name="option4" placeholder="Enter the option 4...." style="width:70%; margin-left: 10px ; margin-right: 20px; padding-left: 15px; padding-right: 15px; border-radius: 20px; border: 1px solid grey; width: 70%; height: 30px; outline: none;">
+                    <label class="btn btn-md" >
+                      Browse <input type="file" name="op_4_img" id="fileupload_4_4" hidden>
+                    </label>
+                  </div>
+                </div>
+          
+                <div class="row" style="margin-top: 10px;">
+                  
+          <!--Select Subjects Of the Exam -->
+                  <div class="col-md-6">
+                    <label>Select subject</label><br>
+                    <select class="selectpicker" name="sub_name" id="sub_name_1" data-style="btn btn-primary btn-round" required>
+                      
+                    </select>
+                  </div>
+
+          <!--Positive Marks -->
+                  <div class="col-md-3">
+                    <label>Positive marks</label>
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="pos_marks" class="marks" id="Opos_marks" required style="border: 1px solid grey;">
+                    </div>
+                  </div>
+
+          <!--Negetive Marks -->
+                  <div class="col-md-3">
+                    <label>Negative marks</label>
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="neg_marks" class="marks" required style="border: 1px solid grey;">
+                    </div>
+                  </div>
+                </div>
+
+          <!-- Submit Button -->
+                <div class="text-center" style="margin-top: 10px;">
+                  <button class="btn btn-fill btn-primary" onclick="return add1();">Submit</button>
+                  <input type="hidden" name="ques_no" value="<%=count%>">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+<!--End Of Objective Modal-->
+
+
+
+<!-- Subjective Question Form Modal-->
+      <div class="modal fade bd-example1-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <form class="ui form" action="/manage_qa/edit/sub" method="POST" id="subform" enctype="multipart/form-data">
+              <div class="ui form" style="margin-left: 40px; margin-right: 40px; margin-top: 40px; margin-bottom: 30px;">
+
+          <!--Question -->  
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Question</label><br> 
+                      <textarea type="text" class="ques" rows="3" name="question" placeholder="Enter the Question....." required style="width: 81%; margin-left: 10px; margin-right: 23px; padding-top: 5px; padding-bottom: 5px; padding-left: 15px; padding-right: 15px; border-radius: 15px; border: 1px solid grey; outline: none;"></textarea>
+                    <label class="btn btn-default" style="margin-top: -50px;">
+                      Browse <input type="file" class="file" name="ques_img" id="fileupload" hidden>
+                    </label>
+                  </div>
+                </div>
+
+          <!--Answer -->  
+                <div class="row">
+                  <div style="width: 100%; margin-top: 10px;">
+                    <label>Answer</label><br> 
+                      <textarea type="text" rows="3" name="answer" placeholder="Enter the Answer....." required style="width: 81%; margin-left: 10px; margin-right: 23px; padding-top: 5px; padding-bottom: 5px; padding-left: 15px; padding-right: 15px; border-radius: 15px; border: 1px solid grey; outline: none;"></textarea>
+                  </div>
+                </div>
+                
+                <div class="col-md-12 row" style="margin-top: 10px;">
+
+          <!--Select Subject Of the Exam -->
+                  <div style="width: 50%;">
+                    <label>Select subject</label><br>
+                    <select class="selectpicker" name="sub_name" id="sub_name" data-style="btn btn-primary btn-round" title="Single Select" required>                      
+                    </select>
+                  </div>
+
+          <!--Positive Marks -->
+                  <div style="margin-left: 120px;">
+                    <label>Marks</label>
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="pos_marks" id="Spos_marks" required style="border: 1px solid grey;">
+                    </div>
+                  </div>
+                </div>
+
+          <!-- Submit Button -->
+                <div class="text-center" style="margin-top: 10px;margin-right: 20px;">
+                  <button class="btn btn-fill btn-primary" onclick="return add();">Submit</button>
+                  <input type="hidden" name="ques_no" value="<%=count%>">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+<!--End Of Subjective Modal-->
+
+
+
+
+<!-- Objective Question Form Modal Edit-->
+      <div class="modal fade bd-example2-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <form class="ui form" action="/manage_qa/edit/updobj" method="post" id="objform_edit" enctype="multipart/form-data">
+              <div class="ui form" style="margin-left: 40px; margin-right: 40px; margin-top: 40px; margin-bottom: 30px;">
+
+          <!--Question -->  
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Question</label><br> 
+                      <textarea type="text" id="question_u" rows="3" name="question" placeholder="Enter the Question....." required style="width: 81%; margin-left: 10px; margin-right: 23px; padding-top: 5px; padding-bottom: 5px; padding-left: 15px; padding-right: 15px; border-radius: 15px; border: 1px solid grey; outline: none;"></textarea>
+                    <label class="btn btn-default" style="margin-top: -50px;">
+                      Browse <input type="file"name="ques_img_o" id="fileupload_1" hidden>
+                    </label>
+                  </div>
+                </div>
+
+          <!--Option 1-->
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Option 1 &nbsp;&nbsp;</label>
+                    <input type="checkbox" id="ch_1" class="check" name="op[]" value="1">
+                    <input type="text" class="input" name="option1" id="option_1_u" placeholder="Enter the option 1...." style="margin-left: 10px ; margin-right: 20px; padding-left: 15px; padding-right: 15px; border-radius: 20px; border: 1px solid grey; width: 70%; height: 30px; outline: none;">
+                    <label class="btn btn-default">
+                      Browse <input type="file"name="op_1_img" id="fileupload_2" hidden>
+                    </label>
+                  </div>
+                </div>
+
+          <!--Option 2-->
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Option 2 &nbsp;</label>
+                    <input type="checkbox" id="ch_2" class="check" name="op[]" value="2">
+                    <input type="text" class="input" id="option_2_u" name="option2" placeholder="Enter the option 2...." style="width:70%; margin-left: 10px ; margin-right: 20px; padding-left: 15px; padding-right: 15px; border-radius: 20px; border: 1px solid grey; width: 70%; height: 30px; outline: none;">
+                    <label class="btn btn-default">
+                      Browse <input type="file" name="op_2_img" id="fileupload_3" hidden>
+                    </label>
+                  </div>
+                </div>
+          
+          <!--Option 3-->
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Option 3 &nbsp;</label>
+                    <input type="checkbox" id="ch_3" class="check" name="op[]" value="3">
+                    <input type="text" class="input" id="option_3_u" name="option3" placeholder="Enter the option 3...." style="width:70%; margin-left: 10px ; margin-right: 20px; padding-left: 15px; padding-right: 15px; border-radius: 20px; border: 1px solid grey; width: 70%; height: 30px; outline: none;">
+                    <label class="btn btn-default">
+                      Browse <input type="file" name="op_3_img" id="fileupload_4" hidden>
+                    </label>
+                  </div>
+                </div>
+
+          <!--Option 4-->
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Option 4 &nbsp;</label>
+                    <input type="checkbox" id="ch_4" class="check" name="op[]" value="4">
+                    <input type="text" class="option" name="option4" id="option_4_u" style="width:70%; margin-left: 10px ; margin-right: 20px; padding-left: 15px; padding-right: 15px; border-radius: 20px; border: 1px solid grey; width: 70%; height: 30px; outline: none;">
+                    <label class="btn btn-md" >
+                      Browse <input type="file" name="op_4_img" id="fileupload_5" hidden>
+                    </label>
+                  </div>
+                </div>
+          
+                <div class="row" style="margin-top: 10px;">
+                  
+          <!--Select Subjects Of the Exam -->
+                  <div class="col-md-6">
+                    <label>Select subject</label><br>
+                    <select class="selectpicker" name="sub_name" id="sub_name_2" data-style="btn btn-primary btn-round" required>                      
+                    </select>
+                  </div>
+
+          <!--Positive Marks -->
+                  <div class="col-md-3">
+                    <label>Positive marks</label>
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="pos_marks" id="Opos_marks_u" required style="border: 1px solid grey;">
+                    </div>
+                  </div>
+
+          <!--Negetive Marks -->
+                  <div class="col-md-3">
+                    <label>Negative marks</label>
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="neg_marks" id="Oneg_marks_u" required style="border: 1px solid grey;">
+                    </div>
+                  </div>
+                </div>
+
+          <!-- Submit Button -->
+                <div class="text-center" style="margin-top: 10px;">
+                  <button class="btn btn-fill btn-primary" onclick="return add1();">Submit</button>
+                  <input type="hidden" name="ques_no" value="<%=count%>">
+                  <input type="hidden" name="ques_id" id="ques_id_o">
+                  <input type="hidden" name="filecheck1" id="filecheck1">
+                  <input type="hidden" name="filecheck2" id="filecheck2">
+                  <input type="hidden" name="filecheck3" id="filecheck3">
+                  <input type="hidden" name="filecheck4" id="filecheck4">
+                  <input type="hidden" name="filecheck5" id="filecheck5">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+<!--End Of Objective Modal Edit-->
+
+
+
+
+<!-- Subjective Question Modal Edit-->
+      <div class="modal fade bd-example3-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <form class="ui form" action="/manage_qa/edit/updsub" method="post" enctype="multipart/form-data">
+              <div class="ui form" style="margin-left: 40px; margin-right: 40px; margin-top: 40px; margin-bottom: 30px;">
+
+          <!--Question -->  
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Question</label><br> 
+                      <textarea type="text" rows="3" name="question" id="question_s_u" required style="width: 81%; margin-left: 10px; margin-right: 23px; padding-top: 5px; padding-bottom: 5px; padding-left: 15px; padding-right: 15px; border-radius: 15px; border: 1px solid grey; outline: none;"></textarea>
+                    <label class="btn btn-default" style="margin-top: -50px;">
+                      Browse <input type="file" class="file" name="ques_img" id="fileupload_e" hidden>
+                    </label>
+                  </div>
+                </div>
+
+          <!--Answer -->  
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label>Answer</label><br> 
+                      <textarea type="text" rows="3" name="answer" id="answer_s_u" required style="width: 81%; margin-left: 10px; margin-right: 23px; padding-top: 5px; padding-bottom: 5px; padding-left: 15px; padding-right: 15px; border-radius: 15px; border: 1px solid grey; outline: none;"></textarea>
+                  </div>
+                </div>
+                  
+                <div class="col-md-12 row" style="margin-top: 10px;">
+
+          <!--Select Subject Of the Exam -->
+                  <div style="width: 50%;">
+                    <label>Select subject</label><br>
+                    <select class="selectpicker" name="sub_name" id="sub_name_0" data-style="btn btn-primary btn-round" required>                      
+                    </select>
+                  </div>
+
+          <!--Positive Marks -->
+                  <div style="margin-left: 120px;">
+                    <label>Marks</label>
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="pos_marks" id="Spos_marks_u" required style="border: 1px solid grey;">
+                    </div>
+                  </div>
+                </div>
+
+          <!-- Submit Button -->
+                <div class="text-center" style="margin-top: 10px;">
+                  <button class="btn btn-fill btn-primary" onclick="return add();">Submit</button>
+                  <input type="hidden" name="ques_id" id="ques_id_s">
+                  <input type="hidden" name="ques_no" value="<%=count%>">
+                  <input type="hidden" name="filecheck" id="filecheck">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+<!--End Of Subjective Modal Edit-->
+
+
+
+
+<!-- Objective Question Images Form Modal-->
+      <div class="modal fade bd-example4-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <form class="ui form" action="#" method="">
+              <div class="ui form" style="margin-left: 40px; margin-right: 40px; margin-top: 40px; margin-bottom: 30px;">
+
+          <!--Question -->  
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label><b>Question</b></label><br>
+                    <img id="ques_img" height="200" width="600" style="display: none" onload="this.style.display=''"><br>
+                  </div>
+                </div>
+
+          <!--Option 1 -->  
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label><b>Option 1</b></label><br>
+                    <img id="op_1_img" height="200" width="600" style="display: none" onload="this.style.display=''"><br>
+                  </div>
+                </div>
+
+          <!--Option 2 -->  
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label><b>Option 2</b></label><br>
+                    <img id="op_2_img" height="200" width="600" style="display: none" onload="this.style.display=''"><br>
+                </div>
+              </div>
+
+          <!--Option 3 -->  
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label><b>Option 3</b></label><br>
+                    <img id="op_3_img" height="200" width="600" style="display: none" onload="this.style.display=''"><br>
+                </div>
+              </div>
+
+          <!--Option 4 -->  
+                <div class="row">
+                  <div style="width: 100%;">
+                    <label><b>Option 4</b></label><br>
+                    <img id="op_4_img" height="200" width="600" style="display: none" onload="this.style.display=''"><br>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+<!--End Of Objective Question Images Modal-->
+
+
+
+
+<!-- Subjective Question Images Form Modal-->
+      <div class="modal fade bd-example5-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <form class="ui form" action="#" method="">
+              <div class="ui form" style="margin-left: 40px; margin-right: 40px; margin-top: 40px; margin-bottom: 30px;">
+
+          <!--Question -->  
+                <div class="row">
+                  <div style="width: 100%;">
+                    <img id="ques_img_s" height="200" width="600" style="display: none" onload="this.style.display=''"><br>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+<!--End Of Subjective Question Images Modal-->
+
+
+
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="copyright" id="copyright">
+            &copy;
+            <script>
+              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            </script>, Designed and Coded by
+            <a href="javascript:void(0)" target="_blank">Group 10</a>.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="../assets/js/plugins/moment.min.js"></script>
+  <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+  <script src="../assets/js/plugins/bootstrap-switch.js"></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../assets/js/plugins/sweetalert2.min.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src="../assets/js/plugins/jquery.validate.min.js"></script>
+  <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src="../assets/js/plugins/bootstrap-datetimepicker.js"></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+  <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
+  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="../assets/js/plugins/jquery-jvectormap.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="../assets/js/plugins/nouislider.min.js"></script>
+  <!-- Chart JS -->
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/now-ui-dashboard.min.js?v=1.1.2" type="text/javascript"></script>
+  <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../assets/demo/demo.js"></script>
+   <script src="../../assets/js/plugins/bootstrap-switch.js"></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../../assets/js/plugins/sweetalert2.min.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src="../../assets/js/plugins/jquery.validate.min.js"></script>
+  <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src="../../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+  <!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="../../assets/js/plugins/bootstrap-selectpicker.js"></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src="../../assets/js/plugins/bootstrap-datetimepicker.js"></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+  <script src="../../assets/js/plugins/jquery.dataTables.min.js"></script>
+  <!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="../../assets/js/plugins/bootstrap-tagsinput.js"></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="../../assets/js/plugins/jquery-jvectormap.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="../../assets/js/plugins/nouislider.min.js"></script>
+  <!-- Chart JS -->
+  <script src="../../assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../../assets/js/now-ui-dashboard.min.js?v=1.1.2" type="text/javascript"></script>
+  <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../../assets/demo/demo.js"></script>
+   <script src="../../assets/js/plugins/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+
+      demo.initVectorMap();
+
+    });
+  </script>
+
+   <script>
+    $(document).ready(function() {
+      // initialise Datetimepicker and Sliders
+      demo.initDateTimePicker();
+      if ($('.slider').length != 0) {
+        demo.initSliders();
+      }
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#datatable').DataTable({
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+          [10, 25, 50, -1],
+          [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: {
+          search: "_INPUT_",
+          searchPlaceholder: "Search records",
+        }
+
+      });
+
+      var table = $('#datatable').DataTable();
+
+      // Edit record
+      table.on('click', '.edit', function() {
+        $tr = $(this).closest('tr');
+        if ($($tr).hasClass('child')) {
+          $tr = $tr.prev('.parent');
+        }
+
+        var data = table.row($tr).data();
+        alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+      });
+
+      // Delete a record
+      table.on('click', '.remove', function(e) {
+        $tr = $(this).closest('tr');
+        if ($($tr).hasClass('child')) {
+          $tr = $tr.prev('.parent');
+        }
+        table.row($tr).remove().draw();
+        e.preventDefault();
+      });
+
+      //Like record
+      table.on('click', '.like', function() {
+        alert('You clicked on Like button');
+      });
+    });
+  </script>
+
+  <script>
+    console.log("subject_exam : ", "<%=subject_exam.length%>" )
+    console.log("subject_all : ", "<%=subject_all.length%>")
+  </script>
+  
+  <!-- Javascript For Options Of Subject -->
+  <script>
+
+      var arr = "<%=subject_exam%>".split(',');
+      console.log("arr : ", arr)
+  
+      var arr2=[];
+      for(var i=0; i<arr.length; i++)
+      {
+        <% for(var j=0;j < subject_all.length ;j++)
+        {%>
+          if(arr[i]== "<%=subject_all[j].sub_id%>"){
+            arr2[i]= "<%=subject_all[j].sub_name%>";
+          }
+        <%}%>
+      }
+
+      console.log(arr2)
+      for(var i=0;i < arr.length;i++)
+      {
+        $('<option value="'+ arr[i] +'">' + arr2[i] + '</option>').appendTo('#sub_name');
+        $('<option value="'+ arr[i] +'">' + arr2[i] + '</option>').appendTo('#sub_name_0');
+        $('<option value="'+ arr[i] +'">' + arr2[i] + '</option>').appendTo('#sub_name_1');
+        $('<option value="'+ arr[i] +'">' + arr2[i] + '</option>').appendTo('#sub_name_2');
+        console.log(arr[i], arr2[i]);
+      };
+
+  </script>
+  
+  
+  <!-- Javascript For remaining marks -->
+  <script>
+    
+    if(<%=confirm%> == 0){
+     var total_marks=<%=total_marks%>;
+     var cal_marks=<%=marks[0].cal_marks%>;
+     console.log(cal_marks);
+     var rema=document.getElementById("rem");
+     rem.value=(+total_marks)- (+cal_marks);
+    }
+  
+    // Function for Subjective Alert //
+         function add() {
+  
+           if(document.getElementById("fileupload_e").files.length != 0) {
+             document.getElementById("filecheck").value = 1;
+           }
+           else{
+             document.getElementById("filecheck").value = 0;
+           }
+  
+            var marks =$("#Spos_marks").val();
+            if((+marks)+ (+cal_marks)> (+total_marks))
+            {
+              window.alert("Your Exceeding The Total Marks");
+              return false;
+            }
+           else {
+            return true;
+          }
+       }
+  
+      //Function For Objective Alert//
+      function add1() {
+        if(document.getElementById("fileupload_1").files.length != 0) {
+          document.getElementById("filecheck1").value = 1;
+        }
+        else{
+          document.getElementById("filecheck1").value = 0;
+        }
+        if(document.getElementById("fileupload_2").files.length != 0) {
+          document.getElementById("filecheck2").value = 1;
+        }
+        else{
+          document.getElementById("filecheck2").value = 0;
+        }
+        if(document.getElementById("fileupload_3").files.length != 0) {
+          document.getElementById("filecheck3").value = 1;
+        }
+        else{
+          document.getElementById("filecheck3").value = 0;
+        }
+        if(document.getElementById("fileupload_4").files.length != 0) {
+          document.getElementById("filecheck4").value = 1;
+        }
+        else{
+          document.getElementById("filecheck4").value = 0;
+        }
+        if(document.getElementById("fileupload_5").files.length != 0) {
+          document.getElementById("filecheck5").value = 1;
+        }
+        else {
+          document.getElementById("filecheck5").value = 0;
+        }
+        //End Of Check//
+        var marks =$("#Opos_marks").val();
+        if((+marks)+ (+cal_marks)> (+total_marks))
+       {
+          window.alert("Your Exceeding The Total Marks");
+          return false;
+       }
+        else {
+         return true;
+       }
+    }
+  </script>
+  
+  
+  <!-- Javascript For Edit Question Function -->
+  <script>
+  
+  $(document).ready(function() {
+  
+    $('#exam_s').DataTable();
+  
+    $('#exam_o').DataTable();
+  
+    var ques_id;
+    $('.edit-obj').click(function() {
+      var $row = $(this).closest("tr"),        // Finds the closest row <tr>
+  
+      $tds = $row.find(".nr");
+      $.each($tds, function() {
+        ques_id=$(this).text();
+        // console.log(exam_id);
+      });
+      console.log(ques_id);
+      $.ajax({
+        type: "POST",
+        data: {ques_id: ques_id},
+        url: './details',
+        dataType: "json",
+        success: function(data)
+        {
+          console.log('Success: ');
+          console.log(data);
+          if(data.user.length)
+          {
+            document.getElementById("ques_id_o").value =  data.user[0].ques_id;
+            document.getElementById("question_u").value = data.user[0].ques;
+            document.getElementById("option_1_u").value = data.user[0].option_1;
+            document.getElementById("option_2_u").value = data.user[0].option_2;
+            document.getElementById("option_3_u").value = data.user[0].option_3;
+            document.getElementById("option_4_u").value = data.user[0].option_4;
+
+            document.getElementById("ch_1").checked = false ;
+            document.getElementById("ch_2").checked = false ;
+            document.getElementById("ch_3").checked = false ;
+            document.getElementById("ch_4").checked = false ;
+
+            var ans= data.user[0].ans;
+            var arr=ans.split(",");
+            for(var i=0;i < arr.length;i++)
+            {
+              if(arr[i]=='1')
+              document.getElementById("ch_1").checked = true ;
+              else if(arr[i]=='2')
+              document.getElementById("ch_2").checked = true ;
+              else if(arr[i]=='3')
+              document.getElementById("ch_3").checked = true ;
+              else if(arr[i]=='4')
+              document.getElementById("ch_4").checked = true ;
+            }
+
+            document.getElementById("Opos_marks_u").value = data.user[0].pos_marks;
+            document.getElementById("Oneg_marks_u").value = data.user[0].neg_marks;
+
+            document.getElementById("sub_name_2").value = "14"
+            console.log("ans : ", data.user[0].ans.toString());
+            console.log("options : ", document.getElementById("sub_name_2").value);
+          }
+        }
+      });
+    });
+  
+  
+  
+    $(".edit-sub").click(function() {
+      var $row = $(this).closest("tr"),        // Finds the closest row <tr>
+  
+      $tds = $row.find(".nr1");
+      $.each($tds, function() {
+        ques_id=$(this).text();
+        // console.log(exam_id);
+      });
+      console.log(ques_id);
+      $.ajax({
+          type: "POST",
+          data: {ques_id: ques_id},
+          url: './details',
+          dataType: "json",
+          success: function(data)
+          {
+              console.log('Success: ');
+              console.log(data);
+              if(data.user.length)
+              {
+                document.getElementById("ques_id_s").value =  data.user[0].ques_id;
+                document.getElementById("question_s_u").value = data.user[0].ques;
+                document.getElementById("answer_s_u").value = data.user[0].ans;
+                document.getElementById("Spos_marks_u").value = data.user[0].pos_marks;
+              }
+          }
+        });
+    });
+
+
+    $('.view-img-obj').click(function() {
+
+      var $row = $(this).closest("tr"),
+      
+      $tds = $row.find(".nr");     // Finds the closest row <tr>
+
+      $.each($tds, function() {
+        ques_id=$(this).text();
+        // console.log(ques_id);
+      });
+      console.log("ques_id : ", ques_id);
+
+      document.getElementById("ques_img").style.display = "none";
+      document.getElementById("op_1_img").style.display = "none";
+      document.getElementById("op_2_img").style.display = "none";
+      document.getElementById("op_3_img").style.display = "none";
+      document.getElementById("op_4_img").style.display = "none";
+
+      $.ajax({
+        type: "POST",
+        data: {ques_id: ques_id},
+        url: './details',
+        dataType: "json",
+        success: function(data)
+        {
+          console.log('Success: ');
+          console.log(data);
+          if(data.user.length)
+          {
+              var logo = document.getElementById('ques_img');
+              var path_ques = "/uploads/Exam_<%=exam_id%>/"+ data.user[0].ques_img;
+              logo.setAttribute('src', path_ques);
+
+              var logo1 = document.getElementById('op_1_img');
+              var path_ques1 = "/uploads/Exam_<%=exam_id%>/"+ data.user[0].option_1_img;
+              logo1.setAttribute('src', path_ques1);
+
+              var logo2 = document.getElementById('op_2_img');
+              var path_ques2 = "/uploads/Exam_<%=exam_id%>/"+ data.user[0].option_2_img;
+              logo2.setAttribute('src', path_ques2);
+
+              var logo3 = document.getElementById('op_3_img');
+              var path_ques3 = "/uploads/Exam_<%=exam_id%>/"+ data.user[0].option_3_img;
+              logo3.setAttribute('src', path_ques3);
+
+              var logo4 = document.getElementById('op_4_img');
+              var path_ques4 = "/uploads/Exam_<%=exam_id%>/"+ data.user[0].option_4_img;
+              logo4.setAttribute('src', path_ques4);
+
+              console.log(path_ques)
+          }
+        }
+      });
+    });
+  
+  
+    $('.view-img-sub').click(function() {
+      document.getElementById("ques_img").style.display = "none";
+      document.getElementById("op_1_img").style.display = "none";
+      document.getElementById("op_2_img").style.display = "none";
+      document.getElementById("op_3_img").style.display = "none";
+      document.getElementById("op_4_img").style.display = "none";
+
+      var $row = $(this).closest("tr"),        // Finds the closest row <tr>
+
+      $tds = $row.find(".nr1");
+      $.each($tds, function() {
+        ques_id=$(this).text();
+        // console.log(ques_id);
+      });
+      console.log(ques_id);
+      $.ajax({
+        type: "POST",
+        data: {ques_id: ques_id},
+        url: './details',
+        dataType: "json",
+        success: function(data)
+        {
+          console.log('Success: ');
+          console.log(data);
+          if(data.user.length)
+          {
+            var logo = document.getElementById('ques_img_s');
+            var path_ques = "/uploads/Exam_<%=exam_id%>/"+ data.user[0].ques_img;
+            logo.setAttribute('src', path_ques);
+            console.log(path_ques)
+          }
+        }
+      });
+    });
+
+  });
+  
+  </script>
+  
+  <!-- Check Whether One Checkbox Is Ticked Or Not-->
+  <script>
+  $("#objform").submit(function(){
+      var checked = $("#objform input:checked").length > 0;
+      if (!checked){
+          alert("Please check at least one checkbox");
+          return false;
+      }
+  });
+  
+  $("#objform_edit").submit(function(){
+      var checked = $("#objform_edit input:checked").length > 0;
+      if (!checked){
+          alert("Please check at least one checkbox");
+          return false;
+      }
+  });
+  </script>
+
+</body>
+
+</html>

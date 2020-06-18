@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+   Manage Exams
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/now-ui-dashboard.css?v=1.1.2" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet"/>
+
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="orange">
+      <div class="logo">
+        <a href="" class="simple-text logo-mini"></a>
+        <div class="simple-text logo-normal">
+          <%if(type==0){%>
+            Admin
+          <%}%>
+          <%if(type==1){%>
+            Client
+            <%}%>
+          <%if(type==2){%>
+            Test Setter
+          <%}%>
+          <%if(type==3){%>
+            Test Checker
+          <%}%>
+        </div>
+      </div>
+      <div class="sidebar-wrapper">
+         <ul class="nav">
+          <li>
+            <a href="/dashboard">
+              <i class="now-ui-icons design_app"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <%if(type==0){%>
+          <li>
+            <a href="/manage_client">
+              <i class="now-ui-icons education_atom"></i>
+              <p>
+               Clients
+              </p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1){%>
+          <li class="active">
+            <a href="/manage_exam">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Exams</p>
+            </a>
+          </li>
+           <li>
+            <a href="/manage_users">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Test Setters</p>
+            </a>
+          </li>
+           <li>
+            <a href="/manage_checker">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Test Checkers</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1 || type==2){%>
+           <li>
+            <a href="/manage_qa">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Question Papers</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1){%>
+           <li>
+            <a href="/manage_students">
+              <i class="now-ui-icons design_bullet-list-67"></i>
+              <p>Students</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1 || type==3){%>
+           <li>
+            <a href="/manage_result">
+              <i class="now-ui-icons text_caps-small"></i>
+              <p>Check Responses</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1){%>
+           <li>
+            <a href="/final_result">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Final Results</p>
+            </a>
+          </li>
+          <%}%>
+          <li>
+            <a href="/logout">
+              <i class="now-ui-icons text_caps-small"></i>
+              <p>Logout</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <div class="panel-header panel-header-md">
+        <h1 class="text-center text-white">Manage Exams</h1>
+      </div>
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              <div class="card-body ">
+                <form method="POST" action="/manage_exam/add_exam">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Enter the name of the Exam</label>
+                      <div class="form-group">
+                        <input class="form-control" placeholder="Enter exam name" name="exam_name" type="text" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Enter the total marks of the Exam</label>
+                      <div class="form-group">
+                        <input class="form-control" placeholder="Enter Total Marks" name="tot_marks" type="text" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Enter the Start Time Of Exam</label>
+                      <div class="form-group">
+                        <input class="form-control" type="time" name="time" id="time">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Enter the number of Warnings To Be Given</label>
+                      <div class="form-group">
+                        <input class="form-control" placeholder="Number of warnings" name="warn" type="number">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Enter the duration of Exam (in minutes)</label>
+                      <div class="form-group">
+                        <input class="form-control" placeholder="Duration" name="duration" type="text" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Set Exam Date</label>
+                      <div class="form-group">
+                        <input class="form-control" name="date" type="date" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label for="select2-multiple-input-sm" class="control-label">Select subject(s)</label>
+				              <select id="user_id" name="subject" class="form-control input-sm select2-multiple" multiple>
+                        <%if(subjects.length){
+                          for(var i = 0;i < subjects.length;i++) { %>
+                            <option value="<%=subjects[i].id%>"><%=subjects[i].name%></option>
+                          <% }
+                        } %>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="card-footer text-center">
+                    <button type="submit" class="btn btn-fill btn-primary">Add Exam</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <button id="myFunction" type="submit" class="btn btn-fill btn-primary">View Exams</button>
+          </div>
+        </div>
+
+        <div id="exam_list" class="col-md-12 col-lg-12" style="margin-top: 30px;">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Student List</h4>
+            </div>
+            <div class="card-body">
+              <div class="toolbar">
+                <!--        Here you can write extra buttons/actions for the toolbar              -->
+              </div>
+              <table id="view_exam_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                  <th>Exam Id</th>
+                  <%if(type==0){%>
+                    <th>Client Name</th>
+                  <%}%>
+                  <th>Exam Name</th>
+                  <th>Exam Date</th>
+                  <th>Start Time</th>
+                  <th>Total Marks</th>
+                  <th>Duration</th>
+                  <th>Edit</th>
+                  <th>Finalize</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th><strong>Exam Id</strong></th>
+                    <%if(type==0){%>
+                      <th><strong>Client Name</strong></th>
+                    <%}%>
+                    <th><strong>Exam Name</strong></th>
+                    <th><strong>Exam Date</strong></th>
+                    <th><strong>Start Time</strong></th>
+                    <th><strong>Total Marks</strong></th>
+                    <th><strong>Duration</strong></th>
+                    <th><strong>Edit</strong></th>
+                    <th><strong>Finalize</strong></th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <%if(exam.length){
+                    for(var i = 0;i < exam.length;i++) { %>
+                    <tr>
+                      <td class="nr"><%=exam[i].exam_id%></td>
+                      <%if(type==0){%>
+                          <% if(exam[i].client_id==0){%>
+                            <td>Admin</td>
+                          <%}%>
+                          <%if(exam[i].client_id!=0){%>
+                              <%for(var j=0;j< name.length;j++){%>
+                                  <%if(name[j].client_id==exam[i].client_id){%>
+                                      <td><%=name[j].client_name%></td>
+                                <%}
+                              }
+                          }%>
+                      <%}%>
+                      <td><%=exam[i].exam_name%></td>
+                      <td><%=exam[i].date%></td>
+                      <td><%=exam[i].start_time%></td>
+                      <td><%=exam[i].total_marks%></td>
+                      <td><%=exam[i].duration%></td>
+                      <td><%if(exam[i].confirm==0){%>
+                        <button class="btn btn-primary" id="edit_exam_modal" data-toggle="modal" data-target=".bd-example2-modal-lg">Edit</button>
+                          <%}%>
+                          <%if(exam[i].confirm==1){%>
+                            <strong>Confirmed</strong>
+                          <%}%>
+                      </td>
+                      <td><%if(exam[i].confirm==0){%>
+                        <button class="btn btn-success" id="confirm_exam_modal" data-toggle="modal" data-target=".bd-example1-modal-md">Confirm</button>
+                          <%}%>
+                          <%if(exam[i].confirm==1){%>
+                            <strong>Confirmed</strong>
+                          <%}%>
+                      </td>
+                    </tr>
+                  <% }
+                  } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+<!--The Confirm Modal-->
+        <div class="modal fade bd-example1-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <form class="ui form" action="/manage_exam/confirm" method="post">
+                <div class="ui form text-center" style="margin-left: 40px; margin-right: 40px; margin-top: 40px; margin-bottom: 30px;">
+                  <p><strong>Are you sure you want to confirm the exam ???</strong></p>
+                  <button class="btn btn-success">Confirm</button>
+                  <input type="hidden" name="exam_id" id="exam_id_c">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+<!--End Of Confirm Modal-->
+
+
+
+<!--Edit Form Modal-->
+        <div class="modal fade bd-example2-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <form class="ui form" action="/manage_exam/edit" method="POST" id="subform" style="margin-left: 40px; margin-right: 40px; margin-top: 0px; margin-bottom: 30px;">
+                <div class="ui form">
+                  <div>
+                    <h4 class="text-center">Update Exam</h1>
+                  </div>
+                  <div class="row" style="margin-top: 30px;">
+                    <div class="col-md-6">
+                      <label>Enter the name of the Exam</label>
+                      <div class="form-group">
+                        <input class="form-control" id="name" placeholder="Enter exam name" name="exam_name" type="text" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Set Exam Date</label>
+                      <div class="form-group">
+                        <input class="form-control" id="exam_date" name="date" type="date" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 15px;">
+                    <div class="col-md-6">
+                      <label>Enter the duration of Exam (in minutes)</label>
+                      <div class="form-group">
+                        <input class="form-control" id="duration" placeholder="Duration" name="duration" type="text" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                    <label>Enter the total marks of the Exam</label>
+                      <div class="form-group">
+                        <input class="form-control" id="total_marks" placeholder="Enter Total Marks" name="tot_marks" type="text" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 15px;">
+                    <div class="col-md-6">
+                      <label>Enter the number of Warnings To Be Given</label>
+                      <div class="form-group">
+                        <input class="form-control" id="warnings" placeholder="No. Of Warnings" name="warn" type="number">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Enter the Start Time Of Exam</label>
+                      <div class="form-group">
+                        <input class="form-control" id="start_time" type="time" name="time">
+                      </div>
+                    </div>
+                  </div>
+
+                <!-- Submit Button -->
+                  <div class="text-center" style="margin-top: 20px;">
+                    <button class="btn btn-fill btn-primary">Update Exam</button>
+                    <input type="hidden" id="exam_id_update" name="exam_id">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+<!--End Of Edit Modal-->
+
+
+      </div>
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="copyright" id="copyright">
+            &copy;
+            <script>
+              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            </script>, Designed and Coded by
+            <a href="javascript:void(0)" target="_blank">Group 10</a>.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="../assets/js/plugins/moment.min.js"></script>
+  <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+  <script src="../assets/js/plugins/bootstrap-switch.js"></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../assets/js/plugins/sweetalert2.min.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src="../assets/js/plugins/jquery.validate.min.js"></script>
+  <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src="../assets/js/plugins/bootstrap-datetimepicker.js"></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+  <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
+  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="../assets/js/plugins/jquery-jvectormap.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="../assets/js/plugins/nouislider.min.js"></script>
+  <!-- Chart JS -->
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/now-ui-dashboard.min.js?v=1.1.2" type="text/javascript"></script>
+  <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../assets/demo/demo.js"></script>
+   <script src="../../assets/js/plugins/bootstrap-switch.js"></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../../assets/js/plugins/sweetalert2.min.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src="../../assets/js/plugins/jquery.validate.min.js"></script>
+  <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src="../../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+  <!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="../../assets/js/plugins/bootstrap-selectpicker.js"></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src="../../assets/js/plugins/bootstrap-datetimepicker.js"></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+  <script src="../../assets/js/plugins/jquery.dataTables.min.js"></script>
+  <!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="../../assets/js/plugins/bootstrap-tagsinput.js"></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="../../assets/js/plugins/jquery-jvectormap.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="../../assets/js/plugins/nouislider.min.js"></script>
+  <!-- Chart JS -->
+  <script src="../../assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../../assets/js/now-ui-dashboard.min.js?v=1.1.2" type="text/javascript"></script>
+  <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../../assets/demo/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+
+      demo.initVectorMap();
+
+    });
+  </script>
+   <script>
+    $(document).ready(function() {
+      // initialise Datetimepicker and Sliders
+      demo.initDateTimePicker();
+      if ($('.slider').length != 0) {
+        demo.initSliders();
+      }
+    });
+  </script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+<script>
+ 
+ $(document).ready(function(){
+    $("#user_id").select2({
+      placeholder: "Select subject",
+      closeOnSelect: false,
+      allowClear: true,
+      tags:true
+    });
+  });
+
+  // $('#user_id').click(function() {
+  //   var x = document.getElementById("user_id").value;
+  //   console.log("clicked : ", x)
+  // })
+</script>
+
+<script>
+  
+  $('#exam_list').hide();
+
+  var expanded = false;
+
+  function showCheckboxes() {
+    var checkboxes = document.getElementById("checkboxes");
+    if (!expanded) {
+      checkboxes.style.display = "block";
+      expanded = true;
+    } else {
+      checkboxes.style.display = "none";
+      expanded = false;
+    }
+  }
+
+  $(document).ready(function(){
+    $("#myFunction").click(function(){
+         $("#exam_list").toggle(800);
+        });
+    });
+  
+    $('.ui.dropdown').dropdown({
+      clearable: true
+    });
+  
+    $(".ui.search.dropdown").dropdown({
+      allowAdditions: true,
+      selectOnKeydown: false,
+      match: 'text',
+      clearable: true
+    });
+  
+      $(document).on('click', "#confirm_exam_modal", function() {
+        var $row = $(this).closest("tr"),        // Finds the closest row <tr>
+  
+          $tds = $row.find(".nr");
+          var id;
+          $.each($tds, function() {
+            id=$(this).text();
+            console.log(id);
+            document.getElementById("exam_id_c").value = id ;
+          });
+          console.log("id : ", id)
+      });
+  
+      var exam_id;
+      $(document).on('click', "#edit_exam_modal", function() {
+        var $row = $(this).closest("tr"),        // Finds the closest row <tr>
+  
+        $tds = $row.find(".nr");
+        $.each($tds, function() {
+          exam_id=$(this).text();
+          // console.log(exam_id);
+        });
+        console.log(exam_id);
+        $.ajax({
+            type: "POST",
+            data: {exam_id: exam_id},
+            url: 'manage_exam/details',
+            dataType: "json",
+            success: function(data)
+            {
+                console.log('Success: ');
+                console.log(data);
+                if(data.user.length)
+                {
+                  document.getElementById("name").value = data.user[0].exam_name;
+                  document.getElementById("total_marks").value = data.user[0].total_marks;
+                  document.getElementById("warnings").value = data.user[0].warning;
+                  document.getElementById("exam_date").value = data.user[0].date.split('T')[0];
+                  document.getElementById("start_time").value = data.user[0].start_time;
+                  document.getElementById("duration").value = data.user[0].duration;
+                  document.getElementById("exam_id_update").value = exam_id;
+                }
+            }
+        });
+      });
+
+        //  var timepicker = new TimePicker('time', {
+        //     lang: 'en',
+        //     theme: 'dark'
+        //   });
+        //   timepicker.on('change', function(evt) {
+            
+        //     var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+        //     evt.element.value = value;
+
+        //   });
+
+  </script>
+
+</body>
+
+</html>

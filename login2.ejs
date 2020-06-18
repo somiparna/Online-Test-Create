@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Online Exam Portal</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../css/util.css">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+<!--===============================================================================================-->
+
+  <script>
+  $(document)
+    .ready(function() {
+      console.log("heyy")
+      $('#login_form')
+        .form({
+          fields: {
+            email: {
+              identifier  : 'email',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your e-mail'
+                },
+                {
+                  type   : 'email',
+                  prompt : 'Please enter a valid e-mail'
+                }
+              ]
+            },
+            password: {
+              identifier  : 'password',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your password'
+                },
+                {
+                  type   : 'length[6]',
+                  prompt : 'Your password must be at least 6 characters'
+                }
+              ]
+            }
+          }
+        })
+      ;
+    })
+  ;
+  </script>
+  
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-t-30 p-b-50">
+				<span class="login100-form-title p-b-41">
+					Welcome User!
+				</span>
+				<form id="login_form" class="login100-form validate-form p-b-33 p-t-5" method="post" action="/log">
+				
+					<center>
+					<% if ( message.length > 0 ) { %>
+          				<p>Message: <%= message %> </p>
+      				<% } %>
+      				</center>
+
+					<div class="wrap-input100 validate-input" data-validate = "Enter username">
+						<input class="input100" type="text" name="username" placeholder="Login ID">
+						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<input class="input100" type="password" name="password" placeholder="Password">
+						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+					</div>
+
+					<div class="container-login100-form-btn m-t-32">
+						<button class="btn btn-info">
+							Login
+						</button>
+					</div>
+
+				</form>
+			</div>
+			<div class="copyright" id="copyright" style="position: absolute; bottom: 0;color: orange;">
+            &copy;
+            <script>
+              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            </script>, Designed and Coded by Group 10.
+          </div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>

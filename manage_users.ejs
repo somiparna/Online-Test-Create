@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+   Manage Setters
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/now-ui-dashboard.css?v=1.1.2" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../assets/demo/demo.css" rel="stylesheet" />
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="orange">
+      <div class="logo">
+        <a href="" class="simple-text logo-mini"></a>
+        <div class="simple-text logo-normal">
+          <%if(type==0){%>
+            Admin
+          <%}%>
+          <%if(type==1){%>
+            Client
+            <%}%>
+          <%if(type==2){%>
+            Test Setter
+          <%}%>
+          <%if(type==3){%>
+            Test Checker
+          <%}%>
+        </div>
+      </div>
+      <div class="sidebar-wrapper">
+         <ul class="nav">
+          <li>
+            <a href="/dashboard">
+              <i class="now-ui-icons design_app"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <%if(type==0){%>
+          <li>
+            <a href="/manage_client">
+              <i class="now-ui-icons education_atom"></i>
+              <p>
+               Clients
+              </p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1){%>
+           <li>
+            <a href="/manage_exam">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Exams</p>
+            </a>
+          </li>
+           <li class="active">
+            <a href="/manage_users">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Test Setters</p>
+            </a>
+          </li>
+           <li>
+            <a href="/manage_checker">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Test Checkers</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1 || type==2){%>
+           <li>
+            <a href="/manage_qa">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Question Papers</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1){%>
+           <li>
+            <a href="/manage_students">
+              <i class="now-ui-icons design_bullet-list-67"></i>
+              <p>Students</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1 || type==3){%>
+           <li>
+            <a href="/manage_result">
+              <i class="now-ui-icons text_caps-small"></i>
+              <p>Check Responses</p>
+            </a>
+          </li>
+          <%}%>
+          <%if(type==0 || type==1){%>
+           <li>
+            <a href="/final_result">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Final Results</p>
+            </a>
+          </li>
+          <%}%>
+          <li>
+            <a href="/logout">
+              <i class="now-ui-icons text_caps-small"></i>
+              <p>Logout</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <div class="panel-header panel-header-md">
+        <h1 class="text-center text-white">Manage Setters</h1>
+      </div>
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              <div class="card-body ">
+                <form method="POST" action="/manage_users">
+                  <% if ( msg.length > 0 ) { %>
+                    <p>Message: <%= msg %> </p>
+                  <% } %>
+                  <input type="hidden" name="user_id" id="user_id" value="0">
+                  <div class="row">
+                    <div class="col-md-6">
+                  <label>Enter the Mobile Number</label>
+                  <div class="form-group">
+                    <input class="form-control" placeholder="Enter the Mobile Number" name="mob" id="mob" type="number" required autofocus><span id="message"></span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>Set Username</label>
+                  <div class="form-group">
+                    <input class="form-control" placeholder="Username" name="username" id="username" type="text" required>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                    <div class="col-md-6">
+                  <label>Enter the name of the setter</label>
+                  <div class="form-group">
+                  <input class="form-control" placeholder="Enter the name" name="name" id="user_name" type="text" required>
+                </div>
+                </div>
+                <div class="col-md-6">
+                 <label>Set Password</label>
+                  <div class="form-group">
+                    <input class="form-control" placeholder="Password" name="password" type="password" id="pass" required>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                    <div class="col-md-6">
+                  <label>Enter the Profession</label>
+                  <div class="form-group">
+                    <input class="form-control" placeholder="Enter the profession" id="profession" list="profession" name="profession">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>Set Exam</label></br>
+                  <select class="selectpicker" name="exam" id="exam" data-style="btn btn-primary btn-round" required>
+                    <option disabled selected>Select Exam</option>
+                    <% if(exam.length){
+                       for(var i = 0;i < exam.length;i++) { %>
+                       <option required value="<%=exam[i].exam_id%>"><%=exam[i].exam_name%></option>
+                      <% }
+                    } %>
+                  </select>
+                </div>
+              </div>
+               <div class="row">
+                    <div class="col-md-6">
+                  <label>Enter the Aadhaar Number</label><br>
+                   <div class="form-group">
+                    <input class="form-control" placeholder="Enter the Aadhar Number" id="aadhar" name="aadhar" type="text" required>
+                  </div>
+                </div>
+                <div class="col-md-4"> 
+                  <label for="select2-multiple-input-sm" class="control-label">Enter the subject(s) assigned</label>
+				          <select id="multi-select" name="subject" class="form-control input-sm select2-multiple" multiple>
+                  </select>
+                </div>
+              </div>
+              <div class="card-footer text-center">
+                <button type="submit" class="btn btn-fill btn-primary">Add Setter</button>
+              </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <button type="submit" id="myFunction" class="btn btn-fill btn-primary">View Setter</button>
+          </div>
+        </div>
+
+        <div id="setter_list" class="col-md-12 col-lg-12" style="margin-top: 30px;">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Test Setters List</h4>
+            </div>
+            <div class="card-body">
+              <div class="toolbar">
+                <!--        Here you can write extra buttons/actions for the toolbar              -->
+              </div>
+              <table class="table table-striped table-bordered" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                  <th>User Id</th>
+                  <th>Full Name</th>
+                  <%if(type==0){%>
+                    <th>Client Name</th>
+                  <%}%>
+                  <th>Mobile Number</th>
+                  <th>Aadhar Number</th>
+                  <th>User Name</th>
+                  <th>User Password</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th><strong>User Id</strong></th>
+                    <th><strong>Full Name</strong></th>
+                    <%if(type==0){%>
+                      <th><strong>Client Name</strong></th>
+                    <%}%>
+                    <th><strong>Mobile Number</strong></th>
+                    <th><strong>Aadhar Number</strong></th>
+                    <th><strong>User Name</strong></th>
+                    <th><strong>User Password</strong></th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <%if(users.length){
+                    for(var i = 0;i < users.length;i++) { %>
+                      <tr>
+                        <td><%=users[i].user_id%></td>
+                        <td><%=users[i].name%></td>
+                        <%if(type==0){%>
+                          <% if(users[i].client_id==0){%>
+                            <td>Admin</td>
+                          <%}%>
+                          <%if(users[i].client_id!=0){%>
+                              <%for(var j=0;j< name.length;j++){%>
+                                <%if(name[j].client_id==users[i].client_id){%>
+                                    <td><%=name[j].client_name%></td>
+                                <%}
+                              }
+                            }%>
+                        <%}%>
+                        <td><%=users[i].mob_no%></td>
+                        <td><%=users[i].aadhar%></td>
+                        <td><%=users[i].username%></td>
+                        <td><%=users[i].password%></td>
+                      </tr>
+                    <% }
+                  } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="copyright" id="copyright">
+            &copy;
+            <script>
+              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            </script>, Designed and Coded by
+            <a href="javascript:void(0)" target="_blank">Group 10</a>.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="../assets/js/plugins/moment.min.js"></script>
+  <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+  <script src="../assets/js/plugins/bootstrap-switch.js"></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../assets/js/plugins/sweetalert2.min.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src="../assets/js/plugins/jquery.validate.min.js"></script>
+  <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src="../assets/js/plugins/bootstrap-datetimepicker.js"></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+  <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
+  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="../assets/js/plugins/jquery-jvectormap.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="../assets/js/plugins/nouislider.min.js"></script>
+  <!-- Chart JS -->
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/now-ui-dashboard.min.js?v=1.1.2" type="text/javascript"></script>
+  <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../assets/demo/demo.js"></script>
+   <script src="../../assets/js/plugins/bootstrap-switch.js"></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../../assets/js/plugins/sweetalert2.min.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src="../../assets/js/plugins/jquery.validate.min.js"></script>
+  <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src="../../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+  <!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="../../assets/js/plugins/bootstrap-selectpicker.js"></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src="../../assets/js/plugins/bootstrap-datetimepicker.js"></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+  <script src="../../assets/js/plugins/jquery.dataTables.min.js"></script>
+  <!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="../../assets/js/plugins/bootstrap-tagsinput.js"></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="../../assets/js/plugins/jquery-jvectormap.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="../../assets/js/plugins/nouislider.min.js"></script>
+  <!-- Chart JS -->
+  <script src="../../assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../../assets/js/now-ui-dashboard.min.js?v=1.1.2" type="text/javascript"></script>
+  <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../../assets/demo/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+
+      demo.initVectorMap();
+
+    });
+  </script>
+   <script>
+    $(document).ready(function() {
+      // initialise Datetimepicker and Sliders
+      demo.initDateTimePicker();
+      if ($('.slider').length != 0) {
+        demo.initSliders();
+      }
+    });
+  </script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $("#multi-select").select2({
+      placeholder: "Select subject",
+      closeOnSelect: false,
+      allowClear: true,
+    });
+  });
+</script>
+
+<script>
+  
+  $('#exam').dropdown({
+    clearable: true
+  });
+
+  $('#setter_list').hide();
+
+
+  $(document).ready(function(){
+    $("#myFunction").click(function(){
+      $("#setter_list").toggle(800);
+    });
+  });
+  
+  
+  $(document).on("change", '#exam', function(e) {
+      var exam = $(this).val();
+      $.ajax({
+          type: "POST",
+          data: {exam: exam},
+          url: 'manage_users/option',
+          dataType: "json",
+          success: function(data){
+            console.log('Success: ');
+            console.log(data.user[0].sub_name);
+            var arr=data.user[0].sub_name.split(",");
+            console.log(arr);
+            var arr2=[];
+            for(var i=0;i<arr.length;i++)
+            {
+              <%for(var j=0;j< subject.length;j++)
+              {%>
+                if(arr[i]== <%=subject[j].sub_id%>)
+                arr2[i]= "<%=subject[j].sub_name%>";
+              <%}%>
+            }
+            console.log(arr2);
+
+            target = $('#multi-select');
+            $(target).empty();
+
+            list = document.getElementById( 'multi-select' );
+            for(var i=0;i< arr.length;i++)
+            {
+                list.options[i] = new Option(arr2[i], arr[i]);
+            };
+          }
+      });
+  });
+  
+  
+      $("#mob").keyup(function(){
+             var mob = $(this).val();
+             if(mob.length==10)
+             {
+               var message = document.getElementById('message');
+               message.innerHTML = "";
+               $.ajax({
+                  type: "POST",
+                  data: {mob: mob},
+                  url: 'manage_users/details',
+                  dataType: "json",
+                  success: function(data)
+                  {
+                      console.log('Success: ');
+                      console.log(data);
+                      if(data.user.length)
+                      {
+                        $("#user_id").val(data.user[0].user_id);
+  
+                        document.getElementById("user_name").value = data.user[0].name;
+                        $("#user_name").prop("readonly", true);
+                        document.getElementById("profession").value = data.user[0].profession;
+                        $("#profession").prop("readonly", true);
+                        document.getElementById("aadhar").value = data.user[0].aadhar_no;
+                        $("#aadhar").prop("readonly", true);
+                        document.getElementById("username").value = data.user[0].user_name;
+                        $("#username").prop("readonly", true);
+                        document.getElementById("pass").value = data.user[0].password;
+                        $("#pass").prop("readonly", true);
+                      }
+                  }
+               });
+             }
+             else {
+                var message = document.getElementById('message');
+                message.innerHTML = "10 digits required, match requested format!"
+  
+                 $("#user_id").val('0');
+                 $("#user_name").val(null);
+                 $("#profession").val(null);
+                 $("#aadhar").val(null);
+                 $("#username").val(null);
+                 $("#pass").val(null);
+  
+                 $("#user_name").prop("readonly", false);
+                 $("#profession").prop("readonly", false);
+                 $("#aadhar").prop("readonly", false);
+                 $("#username").prop("readonly", false);
+                 $("#pass").prop("readonly", false);
+             }
+          });
+  </script>
+
+
+</body>
+
+</html>
